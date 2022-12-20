@@ -151,4 +151,11 @@ class ProductController extends Controller
         $categories = Category::all();
         return view('client.indexProduct',compact('products','categories'));
     }
+    public function details($name,$id){
+        $product = Product::find($id);
+        $discount = $product->sale_price == 0 ? 0 : (1 - ($product->sale_price / $product->price)) * 100;
+        $discount = number_format($discount, 2, '.', ',');
+        $category = $product->category;
+        return view('client.detailsProduct',compact('product','category','discount'));
+    }
 }

@@ -35,7 +35,7 @@
                 <div class="row">
                     @foreach ($products as $item)
                         <div class="col-4">
-                            <a href="#" class="card rounded-0 text-dark text-decoration-none"
+                            <a href="{{   route('details',['name'=>str_replace(' ','-',$item->name),'id'=>$item->id])  }}" class="card rounded-0 text-dark text-decoration-none"
                                 title="{{ $item->name }}">
                                 <img class="card-img-top rounded-0" src="{{ url('uploads') }}/{{ $item->image }}"
                                     alt="">
