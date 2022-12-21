@@ -26,7 +26,7 @@
                                 <span class="text-danger"
                                     {{ $product->sale_price == 0 ? 'hidden' : '' }}>{{ number_format($product->sale_price) }}<small>$</small></span>
                             </h2>
-                            <small>({{ $discount }}%off)</small>
+                            <small>({{ $discount }}%)</small>
                         </div>
                         <form action="{{ route('purchase',$product->id) }}" method="POST">
                             @csrf

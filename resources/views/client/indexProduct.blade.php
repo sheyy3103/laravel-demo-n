@@ -8,24 +8,16 @@
                 <form method="GET" class="w-75">
                     <div class="form-group">
                         <label for="">Search by name: </label>
-                        <input class="form-control mr-sm-2 rounded-0" type="text" placeholder="Search" name="keyword">
+                        <input class="form-control mr-sm-2 rounded-0" type="text" placeholder="Search" name="keyword" value="{{ request()->keyword }}">
                     </div>
-                    {{-- <div class="form-group">
-                        <label for="">Search by category: </label>
-                        <select class="custom-select rounded-0" name="category_id" id="">
-                            <option value="">Select</option>
-                            @foreach ($categories as $item)
-                                <option value="{{ $item->id }}" {{ $item->id == request()->category_id ? 'selected' : '' }}>{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </div> --}}
                     <div class="form-group">
                         <label for="">Filter: </label>
                         <select class="custom-select rounded-0" name="order" id="">
+                            <option value="">-- Choose --</option>
+                            <option value="name_ASC" {{ request()->order == 'name_ASC' ? 'selected' : '' }}>Name (A-Z)</option>
+                            <option value="name_DESC" {{ request()->order == 'name_DESC' ? 'selected' : '' }}>Name (Z-A)</option>
                             <option value="price_DESC" {{ request()->order == 'price_DESC' ? 'selected' : '' }}>Historical Cost (High - Low)</option>
                             <option value="price_ASC" {{ request()->order == 'price_ASC' ? 'selected' : '' }}>Historical Cost (Low - High)</option>
-                            <option value="name_ASC" {{ request()->order == 'name_ASC' ? 'selected' : '' }}>Name (A-Z)</option>
-                            <option value="name_DESC" {{ request()->order == 'name_DESC' ? 'selected' : '' }}>Name (A-Z)</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-outline-secondary btn-block rounded-0">Filter</button>

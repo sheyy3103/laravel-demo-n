@@ -18,7 +18,7 @@
 
     <body>
         <nav class="navbar navbar-expand-sm navbar-light bg-light">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="{{ route('admin.index') }}">ADMIN</a>
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item active">
@@ -31,7 +31,7 @@
                             <a class="dropdown-item" href="{{ route('indexProduct') }}">All Products</a>
                             @foreach ($layout_categories as $item)
                                 <a class="dropdown-item"
-                                    href="{{ route('indexProductWCate', $item->id) }}">{{ $item->name }}</a>
+                                    href="{{ route('indexProductWCate', ["name"=>$item->name,"id"=>$item->id]) }}">{{ $item->name }}</a>
                             @endforeach
                         </div>
                     </li>
@@ -58,8 +58,8 @@
                 </ul>
                 <ul class="navbar-nav pr-5">
                     <li class="nav-item active">
-                        <a href="{{ route('cart') }}" class="nav-link"><i class="fa fa-cart-shopping"
-                                aria-hidden="true"></i>&nbsp;Cart</a>
+                        <a href="{{ route('cart') }}" class="nav-link h6"><i class="fa fa-cart-shopping"
+                                aria-hidden="true"></i>&nbsp;Cart <sup class="badge badge-dark" style="border-radius: 50%; ">{{ $cart->getTotalProduct() }}</sup></a>
                     </li>
                 </ul>
             </div>

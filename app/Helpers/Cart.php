@@ -8,6 +8,7 @@ class Cart
     private $items = [];
     private $totalPrice = 0;
     private $totalQuantity = 0;
+    private $totalProduct = 0;
     public function __construct()
     {
         $this->items = session('cart') ? session('cart') : [];
@@ -46,12 +47,19 @@ class Cart
     {
         return $this->items;
     }
-    public function getTotal(){
+    public function getTotalPrice(){
         for ($i=1; $i <= Product::max('id') ; $i++) {
             if (isset($this->items[$i])) {
                 $this->totalPrice +=  $this->items[$i]['price'] * $this->items[$i]['quantity'];
             }
         }
         return $this->totalPrice;
+    }
+    public function getTotalProduct()
+    {
+        foreach ($this->items as $key => $value) {
+            $this->totalProduct += 1;
+        }
+        return $this->totalProduct;
     }
 }

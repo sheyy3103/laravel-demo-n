@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Helpers\Cart;
 use App\Models\Category;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
@@ -29,7 +30,8 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('layout',function($view){
             $layout_categories = Category::all();
-            $view->with(compact('layout_categories'));
+            $cart = new Cart;
+            $view->with(compact('layout_categories','cart'));
         });
     }
 }

@@ -144,7 +144,7 @@ class ProductController extends Controller
         $categories = Category::all();
         return view('client.indexProduct',compact('products','categories'));
     }
-    public function indexProductWCate($id)
+    public function indexProductWCate($name,$id)
     {
         $category = Category::find($id);
         $products = $category->products()->search()->filter()->paginate(6)->withQueryString();

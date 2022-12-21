@@ -44,9 +44,10 @@
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
-                            class="fas fa-bars"></i></a>
-                </li>
+                    <a class="nav-link active" data-widget="pushmenu" href="#" role="button"><i
+                        class="fas fa-bars"></i></a>
+                    </li>
+                    <a class="navbar-brand" href="{{ route('index') }}">Client</a>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('admin.index') }}" class="nav-link">Home</a>
                 </li>
@@ -294,7 +295,7 @@
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
-            <section class="content">
+            <section class="content pb-4">
                 @include('float_messages')
                 @yield('in')
             </section>

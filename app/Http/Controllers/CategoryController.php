@@ -88,7 +88,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         if ($category->products->count() > 0) {
-            return redirect()->back()->with('error', 'Deleted unsuccessfully because of being linked to the book(s) in store');
+            return redirect()->back()->with('error', 'Deleted unsuccessfully because of being linked to the product(s) in store');
         } else {
             $category->delete();
             return redirect()->back()->with('success', 'Deleted successfully');

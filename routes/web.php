@@ -25,7 +25,7 @@ Route::get('admin/login',[UserController::class, 'adminLogin'])->name('admin.log
 Route::post('admin/signin',[UserController::class, 'adminSignin'])->name('admin.signin');
 Route::prefix('client')->group(function () {
     Route::get('/indexProduct', [ProductController::class, 'indexProduct'])->name('indexProduct');
-    Route::get('/indexProduct/{id}', [ProductController::class, 'indexProductWCate'])->name('indexProductWCate');
+    Route::get('/indexProduct/{name}.{id}', [ProductController::class, 'indexProductWCate'])->name('indexProductWCate');
     Route::get('details/{name}.{id}',[ProductController::class,'details'])->name('details');
     Route::get('/login', [UserController::class, 'login'])->name('login');
     Route::post('/signin', [UserController::class, 'signin'])->name('signin');

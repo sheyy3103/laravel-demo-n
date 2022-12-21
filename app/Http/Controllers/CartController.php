@@ -19,7 +19,7 @@ class CartController extends Controller
     }
     public function cart(Cart $cart)
     {
-        $total = $cart->getTotal();
+        $total = $cart->getTotalPrice();
         $data = $cart->show();
         $product = Product::all();
         return view('client.cart',compact('data','product','total'));
