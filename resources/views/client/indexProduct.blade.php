@@ -22,20 +22,20 @@
                     <div class="form-group">
                         <label for="">Filter: </label>
                         <select class="custom-select rounded-0" name="order" id="">
-                            <option value="price_DESC">Price (High - Low)</option>
-                            <option value="price_ASC">Price (Low - High)</option>
-                            <option value="name_ASC">Name (A-Z)</option>
-                            <option value="name_DESC">Name (A-Z)</option>
+                            <option value="price_DESC" {{ request()->order == 'price_DESC' ? 'selected' : '' }}>Historical Cost (High - Low)</option>
+                            <option value="price_ASC" {{ request()->order == 'price_ASC' ? 'selected' : '' }}>Historical Cost (Low - High)</option>
+                            <option value="name_ASC" {{ request()->order == 'name_ASC' ? 'selected' : '' }}>Name (A-Z)</option>
+                            <option value="name_DESC" {{ request()->order == 'name_DESC' ? 'selected' : '' }}>Name (A-Z)</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-outline-secondary btn-block rounded-0">Filter</button>
                 </form>
             </div>
             <div class="col-lg-9">
-                <div class="row">
+                <div class="row pb-3">
                     @foreach ($products as $item)
-                        <div class="col-4">
-                            <a href="{{   route('details',['name'=>str_replace(' ','-',$item->name),'id'=>$item->id])  }}" class="card rounded-0 text-dark text-decoration-none"
+                        <div class="col-4 py-2">
+                            <a href="{{ route('details',['name'=>str_replace(' ','-',$item->name),'id'=>$item->id]) }}" class="card rounded-0 text-dark text-decoration-none"
                                 title="{{ $item->name }}">
                                 <img class="card-img-top rounded-0" src="{{ url('uploads') }}/{{ $item->image }}"
                                     alt="">
@@ -68,7 +68,9 @@
                         </div>
                     @endforeach
                 </div>
+                {{ $products->links() }}
             </div>
         </div>
     </div>
 @endsection
+

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -31,6 +32,10 @@ Route::prefix('client')->group(function () {
     Route::get('/register', [UserController::class, 'register'])->name('register');
     Route::post('/signup', [UserController::class, 'signup'])->name('signup');
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+    Route::post('/purchase/{id}', [CartController::class, 'add'])->name('purchase');
+    Route::post('/updateCart/{id}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/deleteCart/{id}', [CartController::class, 'detele'])->name('cart.delete');
+    Route::get('/cart', [CartController::class, 'cart'])->name('cart');
 });
 Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/', function () {

@@ -10,6 +10,10 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     </head>
 
     <body>
@@ -22,11 +26,12 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">View</a>
+                            aria-haspopup="true" aria-expanded="false">Shop</a>
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
                             <a class="dropdown-item" href="{{ route('indexProduct') }}">All Products</a>
                             @foreach ($layout_categories as $item)
-                                <a class="dropdown-item" href="{{ route('indexProductWCate',$item->id) }}">{{ $item->name }}</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('indexProductWCate', $item->id) }}">{{ $item->name }}</a>
                             @endforeach
                         </div>
                     </li>
@@ -50,6 +55,12 @@
                             <a class="dropdown-item" href="#">Action 2</a>
                         </div>
                     </li> --}}
+                </ul>
+                <ul class="navbar-nav pr-5">
+                    <li class="nav-item active">
+                        <a href="{{ route('cart') }}" class="nav-link"><i class="fa fa-cart-shopping"
+                                aria-hidden="true"></i>&nbsp;Cart</a>
+                    </li>
                 </ul>
             </div>
         </nav>
