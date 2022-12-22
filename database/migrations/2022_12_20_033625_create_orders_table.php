@@ -16,9 +16,11 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
+            $table->string('name');
             $table->string('address');
             $table->string('phone',11);
             $table->tinyInteger('status')->default(0);
+            $table->text('note')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

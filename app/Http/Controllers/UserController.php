@@ -20,7 +20,11 @@ class UserController extends Controller
     {
         $request->validated();
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->route('index')->with('success', 'Sign in successfully');
+            if ($request->action) {
+                return redirect()->route("$request->action")->with('success', 'Loged in successfully');
+                die();
+            }
+            return redirect()->route('index')->with('success', 'Loged in successfully');
         }else{
             return redirect()->back()->with('error','Email or password is incorrect');
         }
@@ -36,15 +40,16 @@ class UserController extends Controller
         $data = [
             'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
             'password' => $password
         ];
         User::create($data);
-        return redirect()->route('login')->with('success', 'Sign up successfully');
+        return redirect()->route('login')->with('success', 'Registered successfully');
     }
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('index')->with('success', 'Sign out successfully');
+        return redirect()->route('index')->with('success', 'Loged out successfully');
     }
     public function adminLogin()
     {
@@ -54,7 +59,7 @@ class UserController extends Controller
     {
         $request->validated();
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'role' => 1])) {
-            return redirect()->route('admin.index')->with('success', 'Sign in successfully');
+            return redirect()->route('admin.index')->with('success', 'Loged in successfully');
         }else{
             return redirect()->back()->with('error','Email or password is incorrect');
         }

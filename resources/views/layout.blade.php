@@ -31,7 +31,7 @@
                             <a class="dropdown-item" href="{{ route('indexProduct') }}">All Products</a>
                             @foreach ($layout_categories as $item)
                                 <a class="dropdown-item"
-                                    href="{{ route('indexProductWCate', ["name"=>$item->name,"id"=>$item->id]) }}">{{ $item->name }}</a>
+                                    href="{{ route('indexProductWCate', ["id"=>$item->id,"slug"=>slug_format($item->name)]) }}">{{ $item->name }}</a>
                             @endforeach
                         </div>
                     </li>

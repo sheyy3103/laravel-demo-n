@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Cart;
 use App\Http\Requests\Quantity\QuantityRequest;
+use App\Http\Requests\User\OrderUserRequest;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -20,9 +24,9 @@ class CartController extends Controller
     public function cart(Cart $cart)
     {
         $total = $cart->getTotalPrice();
+        $totalProduct = $cart->getTotalProduct();
         $data = $cart->show();
-        $product = Product::all();
-        return view('client.cart',compact('data','product','total'));
+        return view('client.cart',compact('data','total','totalProduct'));
     }
     public function update($id,QuantityRequest $request, Cart $cart)
     {
@@ -34,5 +38,29 @@ class CartController extends Controller
     {
         $cart->detele($id);
         return redirect()->back()->with('success','Deteled item successfully');
+    }
+    public function checkout(Cart $cart)
+    {
+        $total = $cart->getTotalPrice();
+        $totalProduct = $cart->getTotalProduct();
+        $data = $cart->show();
+        return view('client.checkout',compact('data','total','totalProduct'));
+    }
+    public function order(OrderUserRequest $request, Cart $cart, Order $order, OrderDetail $orderDetail)
+    {
+        $request->validated();
+        $ordered = $order->createOrder();
+        foreach ($cart->show() as $item) {
+            $data = [
+                'order_id' => $ordered->id,
+                'product_id' => $item['product_id'],
+                'price' => $item['price'],
+                'quantity' => $item['quantity'],
+                'total' => $item['price'] * $item['quantity'],
+            ];
+            $orderDetail->create($data);
+            $cart->detele($item['product_id']);
+        }
+        return redirect()->route('index')->with('success','Ordered successfully');
     }
 }

@@ -24,9 +24,9 @@ Route::get('/', function () {
 Route::get('admin/login',[UserController::class, 'adminLogin'])->name('admin.login');
 Route::post('admin/signin',[UserController::class, 'adminSignin'])->name('admin.signin');
 Route::prefix('client')->group(function () {
-    Route::get('/indexProduct', [ProductController::class, 'indexProduct'])->name('indexProduct');
-    Route::get('/indexProduct/{name}.{id}', [ProductController::class, 'indexProductWCate'])->name('indexProductWCate');
-    Route::get('details/{name}.{id}',[ProductController::class,'details'])->name('details');
+    Route::get('/product/all-product', [ProductController::class, 'indexProduct'])->name('indexProduct');
+    Route::get('/product/{id}-{slug}.html', [ProductController::class, 'indexProductWCate'])->name('indexProductWCate');
+    Route::get('/product/details/{id}-{slug}.html',[ProductController::class,'details'])->name('details');
     Route::get('/login', [UserController::class, 'login'])->name('login');
     Route::post('/signin', [UserController::class, 'signin'])->name('signin');
     Route::get('/register', [UserController::class, 'register'])->name('register');
@@ -36,6 +36,8 @@ Route::prefix('client')->group(function () {
     Route::post('/updateCart/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/deleteCart/{id}', [CartController::class, 'detele'])->name('cart.delete');
     Route::get('/cart', [CartController::class, 'cart'])->name('cart');
+    Route::middleware('login')->get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+    Route::post('/order', [CartController::class, 'order'])->name('order');
 });
 Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/', function () {
