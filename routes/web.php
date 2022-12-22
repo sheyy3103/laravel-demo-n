@@ -38,6 +38,7 @@ Route::prefix('client')->group(function () {
     Route::get('/cart', [CartController::class, 'cart'])->name('cart');
     Route::middleware('login')->get('/checkout', [CartController::class, 'checkout'])->name('checkout');
     Route::post('/order', [CartController::class, 'order'])->name('order');
+    Route::get('/ordered', [CartController::class, 'ordered'])->name('ordered');
 });
 Route::middleware('admin')->prefix('admin')->group(function () {
     Route::get('/', function () {

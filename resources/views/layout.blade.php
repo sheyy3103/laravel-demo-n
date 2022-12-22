@@ -31,16 +31,21 @@
                             <a class="dropdown-item" href="{{ route('indexProduct') }}">All Products</a>
                             @foreach ($layout_categories as $item)
                                 <a class="dropdown-item"
-                                    href="{{ route('indexProductWCate', ["id"=>$item->id,"slug"=>slug_format($item->name)]) }}">{{ $item->name }}</a>
+                                    href="{{ route('indexProductWCate', ['id' => $item->id, 'slug' => slug_format($item->name)]) }}">{{ $item->name }}</a>
                             @endforeach
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false">{{ Auth::check() ? 'Hello, ' . Auth::user()->name : 'Account' }}</a>
+                </ul>
+                <ul class="navbar-nav pr-5">
+                    <li class="nav-item active dropdown">
+                        <a class="nav-link h6" href="#" id="dropdownId" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-user"></i>
+                            {{ Auth::check() ? Auth::user()->name : 'Account' }}
+                        </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
                             @auth()
+                            <a class="dropdown-item" href="{{ route('ordered') }}">Ordered</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}">Log out</a>
                             @else
                                 <a class="dropdown-item" href="{{ route('login') }}">Log in</a>
@@ -48,18 +53,13 @@
                             @endauth
                         </div>
                     </li>
-                    {{-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownId">
-                            <a class="dropdown-item" href="#">Action 1</a>
-                            <a class="dropdown-item" href="#">Action 2</a>
-                        </div>
-                    </li> --}}
-                </ul>
-                <ul class="navbar-nav pr-5">
                     <li class="nav-item active">
-                        <a href="{{ route('cart') }}" class="nav-link h6"><i class="fa fa-cart-shopping"
-                                aria-hidden="true"></i>&nbsp;Cart <sup class="badge badge-dark" style="border-radius: 50%; ">{{ $cart->getTotalProduct() }}</sup></a>
+                        <a href="{{ route('cart') }}" class="nav-link h6">
+                            <i class="fa fa-cart-shopping"></i>
+                            &nbsp;Cart
+                            <sup class="badge badge-dark"
+                                style="border-radius: 50%; ">{{ $cart->getTotalProduct() }}</sup>
+                        </a>
                     </li>
                 </ul>
             </div>

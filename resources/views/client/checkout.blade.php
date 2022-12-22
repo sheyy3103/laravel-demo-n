@@ -20,27 +20,45 @@
                                     <div class="card-body p-0 pt-3">
                                         <div class="form-group">
                                             <label for="" class="h5 text-muted mb-1">Name: </label>
-                                            <input type="text" class="form-control rounded-0 mt-1" name="name"
-                                                placeholder="Enter name..." value="{{ Auth::user()->name }}">
+                                            <input type="text"
+                                                class="form-control rounded-0 mt-1 @error('name') border-danger @enderror"
+                                                name="name" placeholder="Enter name..." value="{{ Auth::user()->name }}">
+                                            @error('name')
+                                                <small class="help-text text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="h5 text-muted mb-1">Address: </label>
-                                            <input type="text" class="form-control rounded-0 mt-1" name="address"
-                                                placeholder="Enter address...">
+                                            <input type="text"
+                                                class="form-control rounded-0 mt-1 @error('address') border-danger @enderror"
+                                                name="address" placeholder="Enter address...">
+                                            @error('address')
+                                                <small class="help-text text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="h5 text-muted mb-1">Email address: </label>
-                                            <input type="email" class="form-control rounded-0 mt-1" name="email"
-                                                placeholder="Enter phone number..." value="{{ Auth::user()->email }}">
+                                            <input type="email"
+                                                class="form-control rounded-0 mt-1 @error('email') border-danger @enderror"
+                                                name="email" placeholder="Enter phone number..."
+                                                value="{{ Auth::user()->email }}">
+                                            @error('email')
+                                                <small class="help-text text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="h5 text-muted mb-1">Phone number: </label>
-                                            <input type="text" class="form-control rounded-0 mt-1" name="phone"
-                                                placeholder="Enter phone number..." value="{{ Auth::user()->phone }}">
+                                            <input type="text"
+                                                class="form-control rounded-0 mt-1 @error('phone') border-danger @enderror"
+                                                name="phone" placeholder="Enter phone number..."
+                                                value="{{ Auth::user()->phone }}">
+                                            @error('phone')
+                                                <small class="help-text text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
-                                          <label for="" class="h5 text-muted mb-1">Note:</label>
-                                          <textarea class="form-control rounded-0 mt-1" name="note" rows="2"></textarea>
+                                            <label for="" class="h5 text-muted mb-1">Note:</label>
+                                            <textarea class="form-control rounded-0 mt-1" name="note" rows="2"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -82,8 +100,7 @@
                                         @endforeach
                                         <div class="row">
                                             <div class="col border-bottom">
-                                                <div
-                                                    class="row justify-content-between align-items-center my-3">
+                                                <div class="row justify-content-between align-items-center my-3">
                                                     <div class="col-4">
                                                         <p class="h5"><b>Total</b></p>
                                                     </div>

@@ -19,38 +19,56 @@ class CartController extends Controller
         $request->validated();
         $product = Product::find($id);
         $cart->add($product, $request->quantity);
-        return redirect()->route('cart')->with('success','Purchased successfully');
+        return redirect()->route('cart')->with('success', 'Purchased successfully');
     }
     public function cart(Cart $cart)
     {
         $total = $cart->getTotalPrice();
         $totalProduct = $cart->getTotalProduct();
         $data = $cart->show();
-        return view('client.cart',compact('data','total','totalProduct'));
+        return view('client.cart', compact('data', 'total', 'totalProduct'));
     }
-    public function update($id,QuantityRequest $request, Cart $cart)
+    public function update($id, QuantityRequest $request, Cart $cart)
     {
         $request->validated();
-        $cart->update($id,$request->quantity);
-        return redirect()->back()->with('success','Updated quantity successfully');
+        $cart->update($id, $request->quantity);
+        return redirect()->back()->with('success', 'Updated quantity successfully');
     }
-    public function detele(Cart $cart,$id)
+    public function detele(Cart $cart, $id)
     {
         $cart->detele($id);
-        return redirect()->back()->with('success','Deteled item successfully');
+        return redirect()->back()->with('success', 'Deteled item successfully');
     }
     public function checkout(Cart $cart)
     {
         $total = $cart->getTotalPrice();
         $totalProduct = $cart->getTotalProduct();
         $data = $cart->show();
-        return view('client.checkout',compact('data','total','totalProduct'));
+        return view('client.checkout', compact('data', 'total', 'totalProduct'));
     }
     public function order(OrderUserRequest $request, Order $order, OrderDetail $orderDetail)
     {
         $request->validated();
         $ordered = $order->createOrder();
         $orderDetail->createOrderDetails($ordered->id);
-        return redirect()->route('index')->with('success','Ordered successfully');
+        return redirect()->route('index')->with('success', 'Ordered successfully');
+    }
+    public function ordered()
+    {
+        $order = Order::where('user_id', Auth::user()->id)->paginate(1);
+        $orderDetails = [];
+        $products = [];
+        $totalPrice = 0;
+        $totalProduct = 0;
+        foreach ($order as $value) {
+            $orderDetails[$value->id] = Order::find($value->id)->order_details;
+            foreach ($orderDetails[$value->id] as $value) {
+                $products[$value['product_id']] = Product::find($value['product_id']);
+                $totalProduct += 1;
+                $totalPrice += $value['total'];
+            }
+        }
+        // dd($orderDetails[4][0]['product_id']);
+        return view('client.ordered', compact('order', 'orderDetails', 'products', 'totalPrice', 'totalProduct'));
     }
 }

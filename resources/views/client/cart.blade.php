@@ -20,7 +20,7 @@
                 <div class="row border-bottom">
                     <div class="row align-items-center" style="margin: 0; padding: 2vh 2vh; width: 100%">
                         <div class="col">
-                            <img src="{{ url('uploads') }}/{{ $item['image'] }}" alt="" height="100px"
+                            <img src="{{ url('uploads') }}/{{ $item['image'] }}" alt="" height="75px"
                                 width="auto">
                         </div>
                         <div class="col">{{ $item['name'] }}</div>
