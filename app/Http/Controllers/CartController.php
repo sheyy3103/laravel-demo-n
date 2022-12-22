@@ -46,21 +46,11 @@ class CartController extends Controller
         $data = $cart->show();
         return view('client.checkout',compact('data','total','totalProduct'));
     }
-    public function order(OrderUserRequest $request, Cart $cart, Order $order, OrderDetail $orderDetail)
+    public function order(OrderUserRequest $request, Order $order, OrderDetail $orderDetail)
     {
         $request->validated();
         $ordered = $order->createOrder();
-        foreach ($cart->show() as $item) {
-            $data = [
-                'order_id' => $ordered->id,
-                'product_id' => $item['product_id'],
-                'price' => $item['price'],
-                'quantity' => $item['quantity'],
-                'total' => $item['price'] * $item['quantity'],
-            ];
-            $orderDetail->create($data);
-            $cart->detele($item['product_id']);
-        }
+        $orderDetail->createOrderDetails($ordered->id);
         return redirect()->route('index')->with('success','Ordered successfully');
     }
 }
