@@ -1,7 +1,7 @@
 @extends('layout')
 @section('main')
     <div class="container py-3">
-        <div class="card shadow-lg p-3 rounded-0 px-5" style="">
+        <div class="card shadow-lg p-3 rounded-0 px-5 mt-3" style="">
             @foreach ($order as $item)
                 <div class="d-flex justify-content-between align-items-center" style="margin: 0; padding: 0 2vh; width: 100%">
                     <p class="h2 text-secondary font-weight-bold text-uppercase py-3">

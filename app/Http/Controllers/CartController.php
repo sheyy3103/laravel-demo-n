@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Helpers\Cart;
 use App\Http\Requests\Quantity\QuantityRequest;
 use App\Http\Requests\User\OrderUserRequest;
+use App\Mail\OrderShiped;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CartController extends Controller
 {
@@ -51,7 +53,9 @@ class CartController extends Controller
         $request->validated();
         $ordered = $order->createOrder();
         $orderDetail->createOrderDetails($ordered->id);
-        return redirect()->route('index')->with('success', 'Ordered successfully');
+        $orderDetails = $orderDetail->where('order_id', $ordered->id)->get();
+        Mail::to('kelvinhuynhalves1102@gmail.com')->send(new OrderShiped($orderDetails));
+        return redirect()->route('index')->with('success', 'Ordered successfully! Thanks for ordering ~~`');
     }
     public function ordered()
     {
@@ -68,7 +72,6 @@ class CartController extends Controller
                 $totalPrice += $value['total'];
             }
         }
-        // dd($orderDetails[4][0]['product_id']);
         return view('client.ordered', compact('order', 'orderDetails', 'products', 'totalPrice', 'totalProduct'));
     }
 }
